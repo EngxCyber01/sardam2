@@ -1,0 +1,2963 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="SARDAM - Private Scientific High School">
+    <title>SARDAM - Private Scientific High School</title>
+    
+    <style>
+        /* ============================================
+           GLOBAL RESET & VARIABLES
+           ============================================ */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            /* Light Mode Colors */
+            --primary-color: maroon;
+            --primary-hover: #630000;
+            --secondary-color: #8B0000;
+            --accent-color: #ec4899;
+            --success-color: #10b981;
+            --warning-color: #f59e0b;
+            
+            --text-primary: #1e293b;
+            --text-secondary: #475569;
+            --text-muted: #94a3b8;
+            
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8fafc;
+            --bg-tertiary: #f1f5f9;
+            --bg-overlay: rgba(0, 0, 0, 0.5);
+            
+            --border-color: #e2e8f0;
+            --border-light: #f1f5f9;
+            
+            --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+            --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            
+            --card-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --card-gradient-2: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --card-gradient-3: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            --card-gradient-4: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+            
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-fast: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+            --border-radius: 12px;
+            --border-radius-lg: 16px;
+            --max-width: 1280px;
+        }
+
+        /* ============================================
+           PROFESSIONAL ANIMATIONS
+           ============================================ */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes fadeInRight {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        @keyframes shimmer {
+            0% {
+                background-position: -1000px 0;
+            }
+            100% {
+                background-position: 1000px 0;
+            }
+        }
+
+        /* Page Load Animation */
+        body {
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Scroll Animation Classes */
+        .animate-on-scroll {
+            opacity: 0;
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .animate-on-scroll.animated {
+            opacity: 1;
+        }
+
+        .fade-up {
+            transform: translateY(30px);
+        }
+
+        .fade-up.animated {
+            transform: translateY(0);
+        }
+
+        .fade-left {
+            transform: translateX(30px);
+        }
+
+        .fade-left.animated {
+            transform: translateX(0);
+        }
+
+        .fade-right {
+            transform: translateX(-30px);
+        }
+
+        .fade-right.animated {
+            transform: translateX(0);
+        }
+
+        .scale-in {
+            transform: scale(0.9);
+        }
+
+        .scale-in.animated {
+            transform: scale(1);
+        }
+
+        /* Dark Mode Colors */
+        body.dark-mode {
+            --primary-color: maroon;
+            --primary-hover: #630000;
+            --secondary-color: #8B0000;
+            --accent-color: #f472b6;
+            --success-color: #34d399;
+            --warning-color: #fbbf24;
+            
+            --text-primary: #f1f5f9;
+            --text-secondary: #cbd5e1;
+            --text-muted: #94a3b8;
+            
+            --bg-primary: #0f172a;
+            --bg-secondary: #1e293b;
+            --bg-tertiary: #334155;
+            --bg-overlay: rgba(0, 0, 0, 0.7);
+            
+            --border-color: #334155;
+            --border-light: #475569;
+            
+            --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.3);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.6);
+            --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+        }
+
+        /* Dark mode overrides for maroon elements */
+        body.dark-mode nav {
+            background-color: var(--primary-color);
+        }
+
+        body.dark-mode .teacher-photo {
+            border-color: var(--primary-color);
+        }
+
+        body.dark-mode .teacher-card:hover .teacher-photo {
+            border-color: var(--primary-hover);
+        }
+
+        /* High contrast mode */
+        body.high-contrast {
+            --text-primary: #000000;
+            --text-secondary: #000000;
+            --text-muted: #333333;
+            --bg-primary: #ffffff;
+            --bg-secondary: #ffffff;
+            --primary-color: maroon;
+            --primary-hover: #630000;
+            --border-color: #000000;
+        }
+
+        body.high-contrast * {
+            border-color: #000000 !important;
+        }
+
+        body.dark-mode.high-contrast {
+            --text-primary: #ffffff;
+            --text-secondary: #ffffff;
+            --text-muted: #cccccc;
+            --bg-primary: #000000;
+            --bg-secondary: #000000;
+            --border-color: #ffffff;
+        }
+
+        /* Font size adjustment */
+        body.large-text {
+            font-size: 18px;
+        }
+
+        body.large-text h1 {
+            font-size: 3rem;
+        }
+
+        body.large-text h2 {
+            font-size: 2.5rem;
+        }
+
+        body.large-text h3 {
+            font-size: 2rem;
+        }
+
+        /* ============================================
+           BASE STYLES
+           ============================================ */
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
+            font-size: 16px;
+            line-height: 1.7;
+            color: var(--text-primary);
+            background: var(--bg-secondary);
+            transition: background-color 0.3s ease, color 0.3s ease;
+            overflow-x: hidden;
+            user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+        }
+
+        /* RTL Support */
+        body[dir="rtl"] {
+            direction: rtl;
+        }
+
+        body[dir="rtl"] .header-container {
+            flex-direction: row-reverse;
+        }
+
+        body[dir="rtl"] .logo-section {
+            order: 2;
+        }
+
+        body[dir="rtl"] .header-controls {
+            order: 0;
+        }
+
+        body[dir="rtl"] nav {
+            order: 1;
+        }
+
+        body[dir="rtl"] .teacher-card {
+            direction: ltr;
+        }
+
+        body[dir="rtl"] .teacher-card-inner {
+            direction: rtl;
+        }
+
+        body[dir="rtl"] .social-link:hover {
+            transform: translateX(-10px);
+        }
+
+        body[dir="rtl"] .contact-content {
+            direction: rtl;
+        }
+
+        body[dir="rtl"] .contact-form {
+            direction: rtl;
+            text-align: right;
+        }
+
+        body[dir="rtl"] .form-group label {
+            text-align: right;
+        }
+
+        body[dir="rtl"] input,
+        body[dir="rtl"] textarea {
+            text-align: right;
+        }
+
+        body[dir="rtl"] .students-table th,
+        body[dir="rtl"] .students-table td {
+            text-align: right;
+        }
+
+        body[dir="rtl"] .students-table th:first-child,
+        body[dir="rtl"] .students-table td:first-child {
+            text-align: right;
+        }
+
+        body[dir="rtl"] .students-table th:last-child,
+        body[dir="rtl"] .students-table td:last-child {
+            text-align: center;
+        }
+
+        body[dir="rtl"] .students-table th:first-child {
+            border-top-left-radius: 0;
+            border-top-right-radius: var(--border-radius);
+        }
+
+        body[dir="rtl"] .students-table th:last-child {
+            border-top-right-radius: 0;
+            border-top-left-radius: var(--border-radius);
+        }
+
+        /* No JavaScript fallback */
+        .no-js-message {
+            display: none;
+            background: var(--warning-color);
+            color: var(--bg-primary);
+            padding: 1rem;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .no-js .no-js-message {
+            display: block;
+        }
+
+        /* Focus visible for accessibility */
+        *:focus-visible {
+            outline: 3px solid var(--primary-color);
+            outline-offset: 2px;
+            border-radius: 4px;
+        }
+
+        /* Smooth scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Selection */
+        ::selection {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        /* Custom Cursor Effects */
+        * {
+            cursor: default;
+        }
+
+        a, button, input[type="submit"], .teacher-card, .logo, .grade-btn, .nav-links a, .social-link, .lang-btn, .dark-mode-btn {
+            cursor: pointer;
+            position: relative;
+        }
+
+        /* Enhanced pointer visibility */
+        a:hover, button:hover, .teacher-card:hover, .grade-btn:hover, .nav-links a:hover, .social-link:hover {
+            cursor: pointer;
+        }
+
+        input, textarea {
+            cursor: text;
+            user-select: text;
+            -webkit-user-select: text;
+            -moz-user-select: text;
+            -ms-user-select: text;
+        }
+
+        /* Pointer Hover Animation */
+        @media (hover: hover) {
+            .hover-lift:hover {
+                transform: translateY(-3px);
+                transition: var(--transition);
+            }
+
+            .hover-scale:hover {
+                transform: scale(1.05);
+                transition: var(--transition);
+            }
+
+            .hover-glow:hover {
+                box-shadow: 0 0 20px rgba(99, 102, 241, 0.4);
+                transition: var(--transition);
+            }
+        }
+
+        /* ============================================
+           HEADER & NAVIGATION
+           ============================================ */
+        header {
+            background: var(--bg-primary);
+            backdrop-filter: blur(10px);
+            box-shadow: var(--shadow-md);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .header-container {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 1.25rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            cursor: pointer;
+            transition: var(--transition);
+            padding: 0.5rem;
+            border-radius: var(--border-radius);
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .logo-section:hover {
+            transform: translateY(-2px);
+            background: var(--bg-secondary);
+        }
+
+        .logo-section:active {
+            transform: translateY(0);
+        }
+
+        .logo-section:focus {
+            outline: 2px solid var(--primary-color);
+            outline-offset: 2px;
+        }
+
+        .school-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo {
+            width: 48px;
+            height: 48px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 1.5rem;
+            box-shadow: var(--shadow-md);
+            transition: var(--transition);
+            overflow: hidden;
+            position: relative;
+            flex-shrink: 0;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .logo.has-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: none;
+        }
+
+        .logo.has-image {
+            background: var(--bg-primary);
+            border: 2px solid var(--border-color);
+        }
+
+        .logo.has-image img {
+            display: block;
+        }
+
+        .logo.has-image #logoText {
+            display: none;
+        }
+
+        .logo-upload-wrapper {
+            position: relative;
+        }
+
+        .logo-upload-input {
+            display: none;
+        }
+
+        .logo-upload-label {
+            cursor: pointer;
+            display: block;
+        }
+
+        .logo-hint {
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            white-space: nowrap;
+            opacity: 0;
+            transition: var(--transition);
+            pointer-events: none;
+        }
+
+        .logo-upload-wrapper:hover .logo-hint {
+            opacity: 1;
+        }
+
+        .school-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            letter-spacing: -0.3px;
+        }
+
+        .school-subtitle {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            font-weight: 500;
+            margin-top: -0.25rem;
+        }
+
+        /* Navigation */
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background-color: maroon;
+            backdrop-filter: blur(10px);
+            border-radius: var(--border-radius);
+            padding: 0.5rem;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 0.5rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: white;
+            font-weight: 600;
+            transition: var(--transition);
+            padding: 0.625rem 1.25rem;
+            border-radius: var(--border-radius);
+            position: relative;
+            font-size: 0.95rem;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: white;
+            transition: width 0.3s ease;
+            border-radius: 2px;
+        }
+
+        .nav-links a:hover {
+            color: white;
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        /* Language Switcher */
+        .language-switcher {
+            position: relative;
+        }
+
+        .language-btn {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0.625rem 1.25rem;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .language-btn:hover {
+            background: var(--primary-hover);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .language-btn:active {
+            transform: translateY(0);
+        }
+
+        .language-dropdown {
+            display: none;
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-xl);
+            margin-top: 0.5rem;
+            min-width: 180px;
+            max-width: 200px;
+            z-index: 1001;
+            overflow: visible;
+            animation: slideDown 0.2s ease;
+        }
+
+        /* Prevent dropdown from going off-screen on mobile */
+        @media (max-width: 768px) {
+            .language-dropdown {
+                position: fixed;
+                right: 1rem;
+                left: auto;
+                top: auto;
+                margin-top: 1;
+            }
+
+            body[dir="rtl"] .language-dropdown {
+                left: 1rem;
+                right: auto;
+            }
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .language-dropdown.active {
+            display: block;
+        }
+
+        .language-dropdown button {
+            width: 100%;
+            padding: 0.875rem 1.25rem;
+            border: none;
+            background: transparent;
+            text-align: left;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 0.9rem;
+            color: var(--text-primary);
+            font-weight: 500;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .language-dropdown button:last-child {
+            border-bottom: none;
+        }
+
+        .language-dropdown button:hover {
+            background: var(--bg-tertiary);
+            color: var(--primary-color);
+            padding-left: 1.5rem;
+        }
+
+        #fontSizeToggle {
+            display: none;
+        }
+
+        /* Dark Mode Button */
+        .dark-mode-btn {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            padding: 0.625rem 0.75rem;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 1.25rem;
+            min-width: 44px;
+            min-height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .dark-mode-btn:hover {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .dark-mode-btn.active {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+            box-shadow: var(--shadow-sm);
+        }
+
+        /* Header Controls */
+        .header-controls {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        /* ============================================
+           MAIN CONTENT
+           ============================================ */
+        main {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        section {
+            margin-bottom: 5rem;
+            scroll-margin-top: 100px;
+        }
+
+        h2 {
+            font-size: 2.75rem;
+            font-weight: 800;
+            color: var(--text-primary);
+            margin-bottom: 3rem;
+            text-align: center;
+            position: relative;
+            letter-spacing: -1px;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -1rem;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            border-radius: 2px;
+        }
+
+        h3 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+        }
+
+        /* ============================================
+           ABOUT SECTION
+           ============================================ */
+        #about {
+            background: var(--bg-primary);
+            padding: 3.5rem;
+            border-radius: var(--border-radius-lg);
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--border-color);
+            position: relative;
+            overflow: hidden;
+        }
+
+        #about::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color), var(--accent-color));
+        }
+
+        .about-content {
+            max-width: 900px;
+            margin: 0 auto;
+            font-size: 1.125rem;
+            line-height: 1.9;
+            color: var(--text-secondary);
+            text-align: center;
+        }
+
+        /* ============================================
+           TEACHERS SECTION
+           ============================================ */
+        .grade-teachers-selector {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .grade-teacher-btn {
+            background: var(--bg-tertiary);
+            border: 2px solid var(--border-color);
+            padding: 0.875rem 2rem;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--text-secondary);
+            transition: var(--transition);
+            min-width: 120px;
+        }
+
+        .grade-teacher-btn:hover {
+            background: var(--bg-primary);
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .grade-teacher-btn.active {
+            background: var(--primary-color);
+            border-color: var(--primary-color);
+            color: white;
+            box-shadow: var(--shadow-md);
+        }
+
+        .teachers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2.5rem;
+            margin-top: 2rem;
+        }
+
+        .teachers-grade-group {
+            display: none;
+        }
+
+        .teachers-grade-group.active {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2.5rem;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .teacher-card {
+            perspective: 1200px;
+            height: 450px;
+            cursor: pointer;
+        }
+
+        .teacher-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.7s cubic-bezier(0.4, 0.2, 0.2, 1);
+            transform-style: preserve-3d;
+        }
+
+        .teacher-card.flipped .teacher-card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .teacher-card-front,
+        .teacher-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: var(--border-radius-lg);
+            box-shadow: var(--shadow-xl);
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+        }
+
+        .teacher-card-front {
+            background: var(--bg-primary);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2.5rem;
+            transition: var(--transition);
+        }
+
+        .teacher-card:hover .teacher-card-front {
+            box-shadow: var(--shadow-2xl);
+            transform: translateY(-5px);
+        }
+
+        .teacher-photo {
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 1.5rem;
+            border: 5px solid maroon;
+            background: var(--bg-tertiary);
+            box-shadow: var(--shadow-lg);
+            transition: var(--transition);
+        }
+
+        .teacher-card:hover .teacher-photo {
+            transform: scale(1.05);
+            border-color: #630000;
+        }
+
+        .teacher-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            text-align: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .teacher-subject {
+            font-size: 1rem;
+            color: var(--primary-color);
+            font-weight: 600;
+            margin-top: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: var(--bg-tertiary);
+            border-radius: 20px;
+        }
+
+        .teacher-card-back {
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            transform: rotateY(180deg);
+            padding: 2.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 1.25rem;
+        }
+
+        .teacher-card:nth-child(2) .teacher-card-back {
+            background: var(--bg-primary);
+        }
+
+        .teacher-card:nth-child(3) .teacher-card-back {
+            background: var(--bg-primary);
+        }
+
+        .teacher-card:nth-child(4) .teacher-card-back {
+            background: var(--bg-primary);
+        }
+
+        .teacher-bio {
+            font-size: 1rem;
+            line-height: 1.7;
+            margin-bottom: 0;
+        }
+
+        .teacher-experience {
+            font-size: 1rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .teacher-experience::before {
+            content: '🎓';
+            font-size: 1.25rem;
+        }
+
+        .teacher-skills {
+            display: none;
+        }
+
+        .skill-tag {
+            display: none;
+        }
+
+        /* ============================================
+           TOP STUDENTS SECTION
+           ============================================ */
+        .students-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 2.5rem;
+            margin-top: 2rem;
+        }
+
+        .grade-section {
+            background: var(--bg-primary);
+            padding: 2rem;
+            border-radius: var(--border-radius-lg);
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--border-color);
+            transition: var(--transition);
+        }
+
+        .grade-section:hover {
+            box-shadow: var(--shadow-xl);
+            transform: translateY(-5px);
+        }
+
+        .grade-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .grade-title {
+            font-size: 1.75rem;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 700;
+        }
+
+        .grade-controls {
+            display: none;
+        }
+
+        .sort-btn,
+        .print-btn {
+            display: none;
+        }
+
+        .students-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            table-layout: fixed;
+        }
+
+        .students-table thead {
+            background: var(--bg-tertiary);
+        }
+
+        .students-table th,
+        .students-table td {
+            padding: 1rem;
+            text-align: left;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .students-table th:first-child,
+        .students-table td:first-child {
+            width: 70%;
+            text-align: left;
+        }
+
+        .students-table th:last-child,
+        .students-table td:last-child {
+            width: 30%;
+            text-align: center;
+        }
+
+        .students-table th {
+            font-weight: 700;
+            color: var(--text-primary);
+            text-transform: uppercase;
+            font-size: 0.875rem;
+            letter-spacing: 0.5px;
+        }
+
+        .students-table th:first-child {
+            border-top-left-radius: var(--border-radius);
+        }
+
+        .students-table th:last-child {
+            border-top-right-radius: var(--border-radius);
+        }
+
+        .students-table td {
+            color: var(--text-secondary);
+            font-weight: 500;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .students-table tbody tr {
+            transition: var(--transition);
+        }
+
+        .students-table tbody tr:hover {
+            background: var(--bg-tertiary);
+        }
+
+        .students-table tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        .student-score {
+            font-weight: 700;
+            font-size: 1.125rem;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Print styles for grade lists */
+        @media print {
+            body * {
+                visibility: hidden;
+            }
+            
+            .grade-section.printing,
+            .grade-section.printing * {
+                visibility: visible;
+            }
+            
+            .grade-section.printing {
+                position: absolute;
+                left: 0;
+                top: 0;
+            }
+
+            .grade-controls {
+                display: none;
+            }
+        }
+
+        /* ============================================
+           CONTACT SECTION
+           ============================================ */
+        #contact {
+            background: var(--bg-primary);
+            padding: 3.5rem;
+            border-radius: var(--border-radius-lg);
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--border-color);
+        }
+
+        .contact-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 3.5rem;
+            margin-top: 2rem;
+        }
+
+        .social-links {
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+        }
+
+        .social-link {
+            display: flex;
+            align-items: center;
+            gap: 1.25rem;
+            padding: 1.25rem 1.5rem;
+            background: var(--bg-tertiary);
+            border-radius: var(--border-radius);
+            text-decoration: none;
+            color: var(--text-primary);
+            transition: var(--transition);
+            border: 1px solid var(--border-color);
+            font-weight: 600;
+        }
+
+        .social-link:hover {
+            background: var(--primary-color);
+            color: white;
+            transform: translateX(10px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--primary-color);
+        }
+
+        .social-icon {
+            width: 50px;
+            height: 50px;
+            min-width: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--bg-primary);
+            border-radius: 50%;
+            font-size: 1.5rem;
+            transition: var(--transition);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .social-link:hover .social-icon {
+            background: white;
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        /* Contact Form */
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.625rem;
+        }
+
+        .form-group label {
+            font-weight: 700;
+            color: var(--text-primary);
+            font-size: 0.95rem;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            padding: 1rem;
+            border: 2px solid var(--border-color);
+            border-radius: var(--border-radius);
+            font-family: inherit;
+            font-size: 1rem;
+            transition: var(--transition);
+            background: var(--bg-tertiary);
+            color: var(--text-primary);
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
+            background: var(--bg-primary);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 140px;
+        }
+
+        .form-error {
+            color: #ef4444;
+            font-size: 0.875rem;
+            display: none;
+            font-weight: 600;
+        }
+
+        .form-group.error .form-error {
+            display: block;
+        }
+
+        .form-group.error input,
+        .form-group.error textarea {
+            border-color: #ef4444;
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border: none;
+            padding: 1.125rem 2.5rem;
+            border-radius: var(--border-radius);
+            font-size: 1.05rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: var(--shadow-md);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .submit-btn:active {
+            transform: translateY(-1px);
+        }
+
+        .form-success {
+            display: none;
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            padding: 1.25rem;
+            border-radius: var(--border-radius);
+            text-align: center;
+            font-weight: 700;
+            box-shadow: var(--shadow-md);
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .form-success.show {
+            display: block;
+        }
+
+        /* ============================================
+           FOOTER
+           ============================================ */
+        footer {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #cbd5e1;
+            padding: 0;
+            margin-top: 5rem;
+        }
+
+        body.dark-mode footer {
+            background: linear-gradient(135deg, #0a0a14 0%, #0f1419 100%);
+        }
+
+        .footer-main {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 4rem 2rem 3rem;
+            display: grid;
+            grid-template-columns: 1.5fr 1fr 1fr;
+            gap: 4rem;
+        }
+
+        .footer-brand {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-size: 1.75rem;
+            font-weight: 800;
+            color: white;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .footer-logo svg {
+            width: 40px;
+            height: 40px;
+            fill: var(--primary-color);
+        }
+
+        .footer-description {
+            color: #94a3b8;
+            line-height: 1.7;
+            font-size: 0.95rem;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 1rem;
+            margin-top: 0.5rem;
+        }
+
+        .footer-social-link {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #cbd5e1;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            font-size: 1.25rem;
+        }
+
+        .footer-social-link:hover {
+            background: var(--primary-color);
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        .footer-section h3 {
+            color: white;
+            font-size: 1.125rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .footer-links {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .footer-link {
+            color: #94a3b8;
+            text-decoration: none;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.95rem;
+        }
+
+        .footer-link:hover {
+            color: white;
+            padding-left: 8px;
+        }
+
+        .footer-contact-item {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.25rem;
+            color: #94a3b8;
+            font-size: 0.95rem;
+        }
+
+        .footer-contact-icon {
+            min-width: 20px;
+            color: var(--primary-color);
+            font-size: 1.125rem;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 1.75rem 2rem;
+            text-align: center;
+        }
+
+        .footer-copyright {
+            color: #64748b;
+            font-size: 0.9rem;
+            max-width: var(--max-width);
+            margin: 0 auto;
+        }
+
+        /* ============================================
+           RESPONSIVE DESIGN
+           ============================================ */
+        @media (max-width: 1024px) {
+            .teachers-grid {
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+                gap: 2rem;
+            }
+
+            .students-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 968px) {
+            .footer-main {
+                grid-template-columns: 1fr 1fr;
+                gap: 3rem;
+            }
+
+            .footer-brand {
+                grid-column: 1 / -1;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .footer-main {
+                grid-template-columns: 1fr;
+                gap: 2.5rem;
+                padding: 3rem 1.5rem 2rem;
+            }
+
+            .footer-brand {
+                grid-column: 1;
+            }
+
+            .footer-bottom {
+                padding: 1.5rem 1.5rem;
+            }
+            .header-container {
+                padding: 1rem 1.5rem;
+                flex-wrap: wrap;
+                gap: 1rem;
+            }
+
+            .logo-section {
+                flex: 1;
+                order: 0;
+            }
+
+            .school-name {
+                font-size: 1.25rem;
+            }
+
+            .school-subtitle {
+                font-size: 0.7rem;
+            }
+
+            nav {
+                width: 100%;
+                order: 3;
+            }
+
+            .header-controls {
+                order: 1;
+            }
+
+            /* Only swap for RTL languages (Kurdish and Arabic) */
+            body[dir="rtl"] .logo-section {
+                order: 1;
+            }
+
+            body[dir="rtl"] .header-controls {
+                order: 0;
+            }
+
+            body[dir="rtl"] nav {
+                order: 3;
+            }
+
+            .nav-links {
+                width: 100%;
+                justify-content: space-around;
+                gap: 0.5rem;
+            }
+
+            .nav-links a {
+                font-size: 0.85rem;
+                padding: 0.5rem 0.75rem;
+            }
+
+            .header-controls {
+                gap: 0.5rem;
+            }
+
+            .dark-mode-btn {
+                padding: 0.5rem;
+                min-width: 40px;
+                min-height: 40px;
+                font-size: 1rem;
+            }
+
+            .language-btn {
+                font-size: 0.85rem;
+                padding: 0.5rem 0.75rem;
+            }
+
+            .language-btn #currentLang {
+                display: none;
+            }
+
+            main {
+                padding: 2rem 1rem;
+            }
+
+            section {
+                margin-bottom: 3.5rem;
+            }
+
+            h2 {
+                font-size: 2rem;
+                margin-bottom: 2rem;
+            }
+
+            h2::after {
+                width: 60px;
+                height: 3px;
+            }
+
+            #about {
+                padding: 2.5rem 1.5rem;
+            }
+
+            .about-content {
+                font-size: 1rem;
+            }
+
+            .teachers-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .teacher-card {
+                height: 420px;
+            }
+
+            .contact-content {
+                grid-template-columns: 1fr;
+                gap: 2.5rem;
+            }
+
+            .language-switcher {
+                order: 4;
+            }
+
+            #contact {
+                padding: 2.5rem 1.5rem;
+            }
+
+            footer {
+                padding: 2rem 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header-container {
+                padding: 0.75rem 1rem;
+            }
+
+            .logo {
+                width: 40px;
+                height: 40px;
+                font-size: 1.25rem;
+            }
+
+            .school-name {
+                font-size: 1.1rem;
+            }
+
+            .school-subtitle {
+                font-size: 0.65rem;
+            }
+
+            .nav-links {
+                flex-wrap: wrap;
+                gap: 0.25rem;
+            }
+
+            .nav-links a {
+                font-size: 0.75rem;
+                padding: 0.4rem 0.6rem;
+            }
+
+            .language-btn {
+                font-size: 0.75rem;
+                padding: 0.4rem 0.6rem;
+            }
+            }
+
+            h2 {
+                font-size: 1.75rem;
+            }
+
+            h3 {
+                font-size: 1.35rem;
+            }
+
+            #about {
+                padding: 2rem 1.25rem;
+            }
+
+            .teacher-card {
+                height: 400px;
+            }
+
+            .teacher-card-front,
+            .teacher-card-back {
+                padding: 2rem;
+            }
+
+            .teacher-photo {
+                width: 140px;
+                height: 140px;
+            }
+
+            .grade-section {
+                padding: 1.5rem;
+            }
+
+            .grade-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+
+            .grade-title {
+                font-size: 1.5rem;
+            }
+
+            .grade-controls {
+                width: 100%;
+            }
+
+            .sort-btn,
+            .print-btn {
+                flex: 1;
+                justify-content: center;
+            }
+
+            .students-table th,
+            .students-table td {
+                padding: 0.75rem 0.5rem;
+                font-size: 0.9rem;
+            }
+
+            #contact {
+                padding: 2rem 1.25rem;
+            }
+
+            .social-link {
+                padding: 1rem 1.25rem;
+            }
+
+            .submit-btn {
+                padding: 1rem 2rem;
+                font-size: 1rem;
+            }
+
+        @media (max-width: 360px) {
+            .school-name {
+                font-size: 1.2rem;
+            }
+
+            .logo {
+                width: 42px;
+                height: 42px;
+                font-size: 1.35rem;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+
+            .language-btn {
+                padding: 0.5rem 1rem;
+                font-size: 0.85rem;
+            }
+
+            .students-table th,
+            .students-table td {
+                padding: 0.625rem 0.375rem;
+                font-size: 0.85rem;
+            }
+        }
+    </style>
+</head>
+<body class="no-js" dir="ltr">
+    <!-- No JavaScript fallback message -->
+    <div class="no-js-message" role="alert">
+        <p>⚠️ JavaScript is disabled. Please enable JavaScript for the best experience.</p>
+    </div>
+
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <a href="#" class="logo-section" id="homeLink" aria-label="Go to home">
+                <div class="logo" id="schoolLogo" aria-label="SARDAM Logo">
+                    <img id="logoImage" src="sardamlogo.jpg" alt="SARDAM Logo">
+                </div>
+                <div class="school-info">
+                    <h1 class="school-name" data-translate="schoolName">SARDAM high school</h1>
+                    <p class="school-subtitle" data-translate="schoolSubtitle">(non-governmental)</p>
+                </div>
+            </a>
+
+            <nav role="navigation">
+                <ul class="nav-links">
+                    <li><a href="#about" data-translate="navAbout">About</a></li>
+                    <li><a href="#teachers" data-translate="navTeachers">Teachers</a></li>
+                    <li><a href="#students" data-translate="navStudents">Top Students</a></li>
+                    <li><a href="#contact" data-translate="navContact">Contact</a></li>
+                </ul>
+            </nav>
+
+            <div class="header-controls">
+                <button class="dark-mode-btn" id="darkModeToggle" aria-label="Toggle dark mode" title="Dark Mode">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                </button>
+
+                <div class="language-switcher">
+                    <button class="language-btn" id="languageBtn" aria-label="Change language" aria-haspopup="true" aria-expanded="false">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <line x1="2" y1="12" x2="22" y2="12"></line>
+                            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                        </svg>
+                        <span id="currentLang">English</span>
+                    </button>
+                    <div class="language-dropdown" id="languageDropdown" role="menu">
+                        <button data-lang="en" role="menuitem">English</button>
+                        <button data-lang="ku" role="menuitem">کوردی</button>
+                        <button data-lang="ar" role="menuitem">العربية</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <!-- About Section -->
+        <section id="about">
+            <h2 data-translate="aboutTitle">About SARDAM</h2>
+            <div class="about-content">
+                <!-- REPLACE: Edit this paragraph with your school's information -->
+                <p data-translate="aboutText">
+                    SARDAM is a prestigious private scientific high school dedicated to excellence in education. 
+                    We provide a nurturing environment where students can develop their academic potential and 
+                    prepare for success in higher education and beyond. Our experienced faculty members are 
+                    committed to fostering critical thinking, creativity, and a passion for lifelong learning. 
+                    With state-of-the-art facilities and a rigorous curriculum, SARDAM prepares students to 
+                    become leaders and innovators in their chosen fields.
+                </p>
+            </div>
+        </section>
+
+        <!-- Teachers Section -->
+        <section id="teachers">
+            <h2 data-translate="teachersTitle">Our Teachers</h2>
+            
+            <!-- Grade Selector for Teachers -->
+            <div class="grade-teachers-selector">
+                <button class="grade-teacher-btn active" data-grade="10" data-translate="grade10">Grade 10</button>
+                <button class="grade-teacher-btn" data-grade="11" data-translate="grade11">Grade 11</button>
+                <button class="grade-teacher-btn" data-grade="12" data-translate="grade12">Grade 12</button>
+            </div>
+
+            <!-- Grade 10 Teachers -->
+            <div class="teachers-grade-group active" id="teachers-grade-10">
+                <!-- Grade 10 teachers will be dynamically inserted here -->
+            </div>
+
+            <!-- Grade 11 Teachers -->
+            <div class="teachers-grade-group" id="teachers-grade-11">
+                <!-- Grade 11 teachers will be dynamically inserted here -->
+            </div>
+
+            <!-- Grade 12 Teachers -->
+            <div class="teachers-grade-group" id="teachers-grade-12">
+                <!-- Grade 12 teachers will be dynamically inserted here -->
+            </div>
+        </section>
+
+        <!-- Top Students Section -->
+        <section id="students">
+            <h2 data-translate="studentsTitle">Top Students</h2>
+            <div class="students-container">
+                <!-- Grade 10 -->
+                <div class="grade-section" id="grade10Section">
+                    <div class="grade-header">
+                        <h3 class="grade-title" data-translate="grade10">Grade 10</h3>
+                    </div>
+                    <table class="students-table">
+                        <thead>
+                            <tr>
+                                <th data-translate="studentName">Student Name</th>
+                                <th data-translate="studentScore">Score</th>
+                            </tr>
+                        </thead>
+                        <tbody id="grade10List">
+                            <!-- Students will be dynamically inserted here -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Grade 11 -->
+                <div class="grade-section" id="grade11Section">
+                    <div class="grade-header">
+                        <h3 class="grade-title" data-translate="grade11">Grade 11</h3>
+                    </div>
+                    <table class="students-table">
+                        <thead>
+                            <tr>
+                                <th data-translate="studentName">Student Name</th>
+                                <th data-translate="studentScore">Score</th>
+                            </tr>
+                        </thead>
+                        <tbody id="grade11List">
+                            <!-- Students will be dynamically inserted here -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Grade 12 -->
+                <div class="grade-section" id="grade12Section">
+                    <div class="grade-header">
+                        <h3 class="grade-title" data-translate="grade12">Grade 12</h3>
+                    </div>
+                    <table class="students-table">
+                        <thead>
+                            <tr>
+                                <th data-translate="studentName">Student Name</th>
+                                <th data-translate="studentScore">Score</th>
+                            </tr>
+                        </thead>
+                        <tbody id="grade12List">
+                            <!-- Students will be dynamically inserted here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact">
+            <h2 data-translate="contactTitle">Contact Us</h2>
+            <div class="contact-content">
+                <!-- Social Links -->
+                <div class="social-links">
+                    <!-- REPLACE: Update these social media links with your actual URLs -->
+                    <a href="https://www.facebook.com/share/1CrUK4tBN7/" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Facebook">
+                        <span class="social-icon">📘</span>
+                        <span data-translate="facebook">Facebook</span>
+                    </a>
+                    <a href="https://www.instagram.com/amadayi_sardam?igsh=MXBxZzJpYjMwdm1kMA==" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Instagram">
+                        <span class="social-icon">📷</span>
+                        <span data-translate="instagram">Instagram</span>
+                    </a>
+                    <a href="https://youtube.com/@amadayisardam3464?si=zq9ryuPZ7aiGGO1R" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="YouTube">
+                        <span class="social-icon">📺</span>
+                        <span data-translate="youtube">YouTube</span>
+                    </a>
+                    <a href="https://www.snapchat.com/add/amadayi-sardam?share_id=lQksH_an6LY&locale=en-GB" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Snapchat">
+                        <span class="social-icon">👻</span>
+                        <span data-translate="snapchat">Snapchat</span>
+                    </a>
+                    <a href="https://wa.me/9647501234567" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="WhatsApp">
+                        <span class="social-icon">💬</span>
+                        <span data-translate="whatsapp">WhatsApp</span>
+                    </a>
+                    <a href="https://www.tiktok.com/@amadayi.sardam?_r=1&_t=ZS-92Syl0sV1We" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="TikTok">
+                        <span class="social-icon">🎵</span>
+                        <span data-translate="tiktok">TikTok</span>
+                    </a>
+                    <a href="https://t.me/SardamSchool" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Telegram">
+                        <span class="social-icon">✈️</span>
+                        <span data-translate="telegram">Telegram</span>
+                    </a>
+                    <a href="https://maps.app.goo.gl/TUeEuX8U4BrDZQoE9" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Location">
+                        <span class="social-icon">📍</span>
+                        <span data-translate="location">Our Location</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-main">
+            <!-- Brand Section -->
+            <div class="footer-brand">
+                <div class="footer-logo">
+                    <img src="sardamlogo.jpg" alt="SARDAM Logo" style="width: 50px; height: 50px; object-fit: cover; border-radius: 50%;">
+                    <span data-translate="schoolName">SARDAM</span>
+                </div>
+                <p class="footer-description" data-translate="footerDescription">
+                    We create refined educational experiences that support sustainable academic growth and foster strong, lasting relationships with students.
+                </p>
+                <div class="footer-social">
+                    <a href="https://www.facebook.com/share/1CrUK4tBN7/" target="_blank" class="footer-social-link" aria-label="Facebook">📘</a>
+                    <a href="https://www.instagram.com/amadayi_sardam?igsh=MXBxZzJpYjMwdm1kMA==" target="_blank" class="footer-social-link" aria-label="Instagram">📷</a>
+                    <a href="https://www.tiktok.com/@amadayi.sardam?_r=1&_t=ZS-92Syl0sV1We" target="_blank" class="footer-social-link" aria-label="TikTok">🎵</a>
+                </div>
+            </div>
+            <!-- Quick Links -->
+            <div class="footer-section">
+                <h3 data-translate="footerQuickLinks">Quick Links</h3>
+                <div class="footer-links">
+                    <a href="#about" class="footer-link" data-translate="navAbout">About Us</a>
+                    <a href="#teachers" class="footer-link" data-translate="navTeachers">Our Teachers</a>
+                    <a href="#students" class="footer-link" data-translate="navStudents">Students</a>
+                    <a href="#contact" class="footer-link" data-translate="navContact">Contact Us</a>
+                </div>
+            </div>
+
+            <!-- Contact Info -->
+            <div class="footer-section">
+                <h3 data-translate="footerContactUs">Contact Us</h3>
+                <div class="footer-contact-item">
+                    <span class="footer-contact-icon">📍</span>
+                    <span data-translate="footerLocation">Erbil, Iraq</span>
+                </div>
+                <div class="footer-contact-item">
+                    <span class="footer-contact-icon">📞</span>
+                    <span>+964 750</span>
+                </div>
+                <div class="footer-contact-item">
+                    <span class="footer-contact-icon">✉️</span>
+                    <span>info@sardam.edu.iq</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p class="footer-copyright" data-translate="footerCopyright">&copy; 2026 SARDAM - Private Scientific High School. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        /* ============================================
+           DATA: TEACHERS AND STUDENTS
+           REPLACE: Update this data with your actual teachers and students
+           ============================================ */
+        
+        // Teachers Data by Grade - Multilingual
+        const teachersDataMultilingual = {
+            en: {
+                grade10: [
+                    {
+                        id: 1,
+                        name: "Shukr Ahmed",
+                        subject: "Kurdish",
+                        photo: "teachers/m.shukr.jpg",
+                        bio: "Experienced math teacher focusing on algebra and calculus.",
+                        years: 12
+                    },
+                    {
+                        id: 2,
+                        name: "Hemn Zandi ",
+                        subject: "Arabic",
+                        photo: "teachers/m.hemn.jpg",
+                        bio: "Passionate about making physics accessible and fun for students.",
+                        years: 15
+                    },
+                    {
+                        id: 3,
+                        name: "Kayfe Aziz",
+                        subject: "English",
+                        photo: "teachers/m.kayfe.jpg",
+                        bio: "Specializes in organic chemistry and laboratory safety.",
+                        years: 10
+                    },
+                    {
+                        id: 4,
+                        name: "Dashti Ramazan",
+                        subject: "math",
+                        photo: "teachers/m.dashti.jpg",
+                        bio: "Enthusiastic biology teacher with a focus on genetics and ecology.",
+                        years: 8
+                    }
+                ],
+                grade11: [
+                    {
+                        id: 5,
+                        name: "Dr. Hana Rashid",
+                        subject: "Advanced Mathematics",
+                        photo: "images/teacher5.jpg",
+                        bio: "Specializes in calculus and advanced mathematical concepts.",
+                        years: 14
+                    },
+                    {
+                        id: 6,
+                        name: "Prof. Ahmed Ali",
+                        subject: "Physics",
+                        photo: "images/teacher6.jpg",
+                        bio: "Expert in quantum physics and thermodynamics.",
+                        years: 16
+                    },
+                    {
+                        id: 7,
+                        name: "Dr. Zhino Karim",
+                        subject: "Chemistry",
+                        photo: "images/teacher7.jpg",
+                        bio: "Focuses on physical chemistry and analytical methods.",
+                        years: 11
+                    },
+                    {
+                        id: 8,
+                        name: "Mr. Dilovan Saeed",
+                        subject: "Biology",
+                        photo: "images/teacher8.jpg",
+                        bio: "Passionate about molecular biology and biotechnology.",
+                        years: 9
+                    }
+                ],
+                grade12: [
+                    {
+                        id: 9,
+                        name: "Dr. Sardar Jalal",
+                        subject: "Advanced Physics",
+                        photo: "images/teacher9.jpg",
+                        bio: "University preparation specialist in theoretical physics.",
+                        years: 18
+                    },
+                    {
+                        id: 10,
+                        name: "Prof. Rawan Omar",
+                        subject: "Mathematics",
+                        photo: "images/teacher10.jpg",
+                        bio: "Expert in university entrance exam preparation.",
+                        years: 20
+                    },
+                    {
+                        id: 11,
+                        name: "Dr. Bahez Ibrahim",
+                        subject: "Chemistry",
+                        photo: "images/teacher11.jpg",
+                        bio: "Specializes in advanced chemistry and laboratory techniques.",
+                        years: 13
+                    },
+                    {
+                        id: 12,
+                        name: "Mr. Noor Mohammed",
+                        subject: "Biology",
+                        photo: "images/teacher12.jpg",
+                        bio: "Focuses on advanced biology and medical sciences preparation.",
+                        years: 10
+                    }
+                ]
+            },
+            ku: {
+                grade10: [
+                    {
+                        id: 1,
+                        name: "شوکر ئەحمەد",
+                        subject: "کوردی",
+                        photo: "teachers/m.shukr.jpg",
+                        bio: "خاوەنی زۆڕترین نمرەی ١٠٠ , مامۆستای بە ئەزموونی کوردی ، تایبەتمەندە بە قۆناغی ئامادەیی.",
+                        years: 17
+                    },
+                    {
+                        id: 2,
+                        name: "هێمن زەندی",
+                        subject: "عەڕەبی",
+                        photo: "teachers/m.hemn.jpg",
+                        bio: "مامۆستای بە ئەزموونی عەڕەبی ، تایبەتمەندە بە قۆناغی ئامادەیی.",
+                        years: 6
+                    },
+                    {
+                        id: 3,
+                        name: "کەیفی عەزیز",
+                        subject: "ئینگلیزی",
+                        photo: "teachers/m.kayfe.jpg",
+                        bio: "مامۆستای بە ئەزموونی ئینگلیزی ، تایبەتمەندە بە قۆناغی ئامادەیی.",
+                        years: 10
+                    },
+                    {
+                        id: 4,
+                        name: "دەشتی رەمەزان",
+                        subject: "بیرکاری",
+                        photo: "teachers/m.dashti.jpg",
+                        bio: "مامۆستای بە ئەزموونی بیرکاری ، تایبەتمەندە بە قۆناغی ئامادەیی.",
+                        years: 8
+                    }
+                ],
+                grade11: [
+                    {
+                        id: 5,
+                        name: "د. هانا ڕەشید",
+                        subject: "ماتماتیکی پێشکەوتوو",
+                        photo: "images/teacher5.jpg",
+                        bio: "پسپۆڕی کەلکیوڵەس و چەمکە پێشکەوتووەکانی ماتماتیک.",
+                        years: 14
+                    },
+                    {
+                        id: 6,
+                        name: "پ. ئەحمەد عەلی",
+                        subject: "فیزیا",
+                        photo: "images/teacher6.jpg",
+                        bio: "شارەزای فیزیای کوانتۆم و تێرمۆدایناميک.",
+                        years: 16
+                    },
+                    {
+                        id: 7,
+                        name: "د. ژینۆ کەریم",
+                        subject: "کیمیا",
+                        photo: "images/teacher7.jpg",
+                        bio: "تایبەتمەندە بە کیمیای فیزیکی و شێوازە شیکارییەکان.",
+                        years: 11
+                    },
+                    {
+                        id: 8,
+                        name: "م. دلۆڤان سەعید",
+                        subject: "بایۆلۆجی",
+                        photo: "images/teacher8.jpg",
+                        bio: "حەزی هەیە بە بایۆلۆجیای مۆلیکیولی و بایۆتێکنەلۆجی.",
+                        years: 9
+                    }
+                ],
+                grade12: [
+                    {
+                        id: 9,
+                        name: "د. سەردار جەلال",
+                        subject: "فیزیای پێشکەوتوو",
+                        photo: "images/teacher9.jpg",
+                        bio: "پسپۆڕی ئامادەکردنی زانکۆ لە فیزیای تیۆری.",
+                        years: 18
+                    },
+                    {
+                        id: 10,
+                        name: "پ. ڕەوان عومەر",
+                        subject: "ماتماتیک",
+                        photo: "images/teacher10.jpg",
+                        bio: "شارەزای ئامادەکردنی تاقیکردنەوەی چوونە زانکۆ.",
+                        years: 20
+                    },
+                    {
+                        id: 11,
+                        name: "د. باهێز ئیبراهیم",
+                        subject: "کیمیا",
+                        photo: "images/teacher11.jpg",
+                        bio: "پسپۆڕی کیمیای پێشکەوتوو و تەکنیکەکانی تاقیگە.",
+                        years: 13
+                    },
+                    {
+                        id: 12,
+                        name: "م. نور محەمەد",
+                        subject: "بایۆلۆجی",
+                        photo: "images/teacher12.jpg",
+                        bio: "تایبەتمەندە بە بایۆلۆجیای پێشکەوتوو و ئامادەکردنی زانستە پزیشکییەکان.",
+                        years: 10
+                    }
+                ]
+            },
+            ar: {
+                grade10: [
+                    {
+                        id: 1,
+                        name: "شكر أحمد",
+                        subject: "الكردية",
+                        photo: "teachers/m.shukr.jpg",
+                        bio: "معلم رياضيات متمرس متخصص في الجبر والتفاضل والتكامل.",
+                        years: 12
+                    },
+                    {
+                        id: 2,
+                        name: " هێمن زەندی",
+                        subject: "العربية",
+                        photo: "teachers/m.hemn.jpg",
+                        bio: "شغوف بجعل الفيزياء سهلة وممتعة للطلاب.",
+                        years: 15
+                    },
+                    {
+                        id: 3,
+                        name: "كيفي عزيز",
+                        subject: "الإنجليزية",
+                        photo: "teachers/m.kayfe.jpg",
+                        bio: "متخصصة في الكيمياء العضوية والسلامة المخبرية.",
+                        years: 10
+                    },
+                    {
+                        id: 4,
+                        name: "دەشتي رمضان",
+                        subject: "بیرکاری",
+                        photo: "teachers/m.dashti.jpg",
+                        bio: "معلم أحياء متحمس مع التركيز على الوراثة والبيئة.",
+                        years: 8
+                    }
+                ],
+                grade11: [
+                    {
+                        id: 5,
+                        name: "د. هناء رشيد",
+                        subject: "الرياضيات المتقدمة",
+                        photo: "images/teacher5.jpg",
+                        bio: "متخصصة في التفاضل والتكامل والمفاهيم الرياضية المتقدمة.",
+                        years: 14
+                    },
+                    {
+                        id: 6,
+                        name: "أ. أحمد علي",
+                        subject: "الفيزياء",
+                        photo: "images/teacher6.jpg",
+                        bio: "خبير في فيزياء الكم والديناميكا الحرارية.",
+                        years: 16
+                    },
+                    {
+                        id: 7,
+                        name: "د. جينو كريم",
+                        subject: "الكيمياء",
+                        photo: "images/teacher7.jpg",
+                        bio: "يركز على الكيمياء الفيزيائية والطرق التحليلية.",
+                        years: 11
+                    },
+                    {
+                        id: 8,
+                        name: "أ. ديلوفان سعيد",
+                        subject: "الأحياء",
+                        photo: "images/teacher8.jpg",
+                        bio: "شغوف بعلم الأحياء الجزيئي والتكنولوجيا الحيوية.",
+                        years: 9
+                    }
+                ],
+                grade12: [
+                    {
+                        id: 9,
+                        name: "د. سردار جلال",
+                        subject: "الفيزياء المتقدمة",
+                        photo: "images/teacher9.jpg",
+                        bio: "متخصص في إعداد الجامعة في الفيزياء النظرية.",
+                        years: 18
+                    },
+                    {
+                        id: 10,
+                        name: "أ. روان عمر",
+                        subject: "الرياضيات",
+                        photo: "images/teacher10.jpg",
+                        bio: "خبير في إعداد امتحانات القبول الجامعي.",
+                        years: 20
+                    },
+                    {
+                        id: 11,
+                        name: "د. باهيز إبراهيم",
+                        subject: "الكيمياء",
+                        photo: "images/teacher11.jpg",
+                        bio: "متخصص في الكيمياء المتقدمة وتقنيات المختبر.",
+                        years: 13
+                    },
+                    {
+                        id: 12,
+                        name: "أ. نور محمد",
+                        subject: "الأحياء",
+                        photo: "images/teacher12.jpg",
+                        bio: "يركز على الأحياء المتقدمة وإعداد العلوم الطبية.",
+                        years: 10
+                    }
+                ]
+            }
+        };
+
+        // Students Data - Multilingual
+        const studentsDataMultilingual = {
+            en: {
+                grade10: [
+                    { name: "Sara Karim", score: 98 },
+                    { name: "Zana Hadi", score: 95 },
+                    { name: "Rawan Ahmad", score: 94 },
+                    { name: "Salar Jamal", score: 92 },
+                    { name: "Noor Mohammed", score: 90 }
+                ],
+                grade11: [
+                    { name: "Aya Hassan", score: 99 },
+                    { name: "Rebaz Omar", score: 97 },
+                    { name: "Dilan Salah", score: 96 },
+                    { name: "Hawkar Ali", score: 93 },
+                    { name: "Shnya Mahmoud", score: 91 }
+                ],
+                grade12: [
+                    { name: "Hana Aziz", score: 100 },
+                    { name: "Sardar Jalal", score: 98 },
+                    { name: "Zhino Rashid", score: 97 },
+                    { name: "Bahez Ibrahim", score: 95 },
+                    { name: "Rozhan Faraj", score: 94 }
+                ]
+            },
+            ku: {
+                grade10: [
+                    { name: "سارا کەریم", score: 98 },
+                    { name: "زانا هادی", score: 95 },
+                    { name: "ڕەوان ئەحمەد", score: 94 },
+                    { name: "سالار جەمال", score: 92 },
+                    { name: "نور محەمەد", score: 90 }
+                ],
+                grade11: [
+                    { name: "ئایا حەسەن", score: 99 },
+                    { name: "ڕێباز عومەر", score: 97 },
+                    { name: "دلان سالاح", score: 96 },
+                    { name: "هاوکار عەلی", score: 93 },
+                    { name: "شنیا مەحمود", score: 91 }
+                ],
+                grade12: [
+                    { name: "هانا عەزیز", score: 100 },
+                    { name: "سەردار جەلال", score: 98 },
+                    { name: "ژینۆ ڕەشید", score: 97 },
+                    { name: "باهێز ئیبراهیم", score: 95 },
+                    { name: "ڕۆژان فەرەج", score: 94 }
+                ]
+            },
+            ar: {
+                grade10: [
+                    { name: "سارة كريم", score: 98 },
+                    { name: "زانا هادي", score: 95 },
+                    { name: "روان أحمد", score: 94 },
+                    { name: "سالار جمال", score: 92 },
+                    { name: "نور محمد", score: 90 }
+                ],
+                grade11: [
+                    { name: "آية حسن", score: 99 },
+                    { name: "ريباز عمر", score: 97 },
+                    { name: "ديلان صلاح", score: 96 },
+                    { name: "هاوكار علي", score: 93 },
+                    { name: "شنيا محمود", score: 91 }
+                ],
+                grade12: [
+                    { name: "هناء عزيز", score: 100 },
+                    { name: "سردار جلال", score: 98 },
+                    { name: "جينو رشيد", score: 97 },
+                    { name: "باهيز إبراهيم", score: 95 },
+                    { name: "روجان فرج", score: 94 }
+                ]
+            }
+        };
+
+        /* ============================================
+           TRANSLATIONS
+           REPLACE: Edit these translations as needed
+           ============================================ */
+        
+        const translations = {
+            en: {
+                schoolName: "SARDAM",
+                schoolSubtitle: "(non-governmental high school)",
+                navAbout: "About",
+                navTeachers: "Teachers",
+                navStudents: "Top Students",
+                navContact: "Contact",
+                aboutTitle: "About SARDAM",
+                aboutText: "SARDAM is a prestigious private scientific high school dedicated to excellence in education. We provide a nurturing environment where students can develop their academic potential and prepare for success in higher education and beyond. Our experienced faculty members are committed to fostering critical thinking, creativity, and a passion for lifelong learning. With state-of-the-art facilities and a rigorous curriculum, SARDAM prepares students to become leaders and innovators in their chosen fields.",
+                teachersTitle: "Our Teachers",
+                teacherYears: "years of experience",
+                teacherSkills: "Skills",
+                studentsTitle: "Top Students",
+                grade10: "Grade 10",
+                grade11: "Grade 11",
+                grade12: "Grade 12",
+                studentName: "Student Name",
+                studentScore: "Score",
+                sortBtn: "Sort ↕",
+                printBtn: "Print 🖨",
+                contactTitle: "Contact Us",
+                facebook: "Facebook",
+                instagram: "Instagram",
+                youtube: "YouTube",
+                snapchat: "Snapchat",
+                whatsapp: "WhatsApp",
+                tiktok: "TikTok",
+                telegram: "Telegram",
+                location: "Our Location",
+                formName: "Name",
+                formEmail: "Email",
+                formPhone: "Phone Number",
+                formMessage: "Message",
+                formSubmit: "Send Message",
+                formNameError: "Please enter your name",
+                formEmailError: "Please enter a valid email",
+                formPhoneError: "Please enter your phone number",
+                formMessageError: "Please enter a message",
+                formSuccess: "Thank you! Your message has been sent successfully.",
+                footerCopyright: "© 2026 SARDAM - Private Scientific High School. All rights reserved.",
+                footerDescription: "We create refined educational experiences that support sustainable academic growth and foster strong, lasting relationships with students.",
+                footerQuickLinks: "Quick Links",
+                footerContactUs: "Contact Us",
+                footerLocation: "Erbil, Iraq"
+            },
+            ku: {
+                schoolName: "سەردەم",
+                schoolSubtitle: "(ئامادەیی ناحکومی)",
+                navAbout: "دەربارە",
+                navTeachers: "مامۆستایان",
+                navStudents: "باشترین قوتابیان",
+                navContact: "پەیوەندی",
+                aboutTitle: "دەربارەی سەردەم",
+                aboutText: "سەردەم قوتابخانەیەکی زانستی تایبەتە کە خۆی تەرخان کردووە بۆ باشترین پەروەردە. ئێمە ژینگەیەکی باش دابین دەکەین کە قوتابیان بتوانن توانای ئەکادیمی خۆیان پەرە پێبدەن و ئامادە بن بۆ سەرکەوتن لە خوێندنی بەرز و دواتر. مامۆستا بەئەزموونەکانمان خۆیان تەرخان کردووە بۆ پەروەردەی بیرکردنەوەی ڕەخنەگرانە، داهێنان و حەزی فێربوونی درێژخایەن. بە ئامرازەکانی نوێ و پڕۆگرامی خوێندنی توند، سەردەم قوتابیان ئامادە دەکات بۆ ئەوەی ببنە ڕابەر و داهێنەر لە بوارەکانیان.",
+                teachersTitle: "مامۆستایانمان",
+                teacherYears: "ساڵ ئەزموون",
+                teacherSkills: "لێهاتووییەکان",
+                studentsTitle: "باشترین قوتابیان",
+                grade10: "پۆلی ١٠",
+                grade11: "پۆلی ١١",
+                grade12: "پۆلی ١٢",
+                studentName: "ناوی قوتابی",
+                studentScore: "نمرە",
+                sortBtn: "ڕیزکردن ↕",
+                printBtn: "چاپکردن 🖨",
+                contactTitle: "پەیوەندی بکە",
+                facebook: "فەیسبووک",
+                instagram: "ئینستاگرام",
+                youtube: "یوتیوب",
+                snapchat: "سناپچات",
+                whatsapp: "واتساپ",
+                tiktok: "تیکتۆک",
+                telegram: "تێلێگرام",
+                location: "شوێنی ئێمە",
+                formName: "ناو",
+                formEmail: "ئیمەیڵ",
+                formPhone: "ژمارەی مۆبایل",
+                formMessage: "پەیام",
+                formSubmit: "ناردنی پەیام",
+                formNameError: "تکایە ناوت بنووسە",
+                formEmailError: "تکایە ئیمەیڵێکی دروست بنووسە",
+                formPhoneError: "تکایە ژمارەی مۆبایلەکەت بنووسە",
+                formMessageError: "تکایە پەیامێک بنووسە",
+                formSuccess: "سوپاس! پەیامەکەت بە سەرکەوتوویی نێردرا.",
+                footerCopyright: "©  ٢٠٢٦ سەردەم - قوتابخانەی زانستی تایبەت. هەموو مافێک پارێزراوە.",
+                footerDescription: "ئێمە ئەزموونی پەروەردەیی بەرز دروست دەکەین کە پشتگیری لە گەشەی ئەکادیمی بەردەوام دەکەن و پەیوەندیەکی بەهێز و درێژخایەن لەگەڵ قوتابیان دروست دەکەن.",
+                footerQuickLinks: "بەستەری خێرا",
+                footerContactUs: "پەیوەندی",
+                footerLocation: "هەولێر، عێراق"
+            },
+            ar: {
+                schoolName: "سردم",
+                schoolSubtitle: "(مدرسة ثانوية غير حكومية)",
+                navAbout: "عن المدرسة",
+                navTeachers: "المعلمون",
+                navStudents: "أفضل الطلاب",
+                navContact: "اتصل بنا",
+                aboutTitle: "عن سردم",
+                aboutText: "سردم مدرسة ثانوية علمية خاصة مرموقة تكرس نفسها للتميز في التعليم. نحن نوفر بيئة داعمة حيث يمكن للطلاب تطوير إمكاناتهم الأكاديمية والاستعداد للنجاح في التعليم العالي وما بعده. أعضاء هيئة التدريس ذوي الخبرة لدينا ملتزمون بتعزيز التفكير النقدي والإبداع والشغف بالتعلم مدى الحياة. مع المرافق الحديثة والمنهج الصارم، تعد سردم الطلاب ليصبحوا قادة ومبتكرين في مجالاتهم المختارة.",
+                teachersTitle: "معلمونا",
+                teacherYears: "سنوات من الخبرة",
+                teacherSkills: "المهارات",
+                studentsTitle: "أفضل الطلاب",
+                grade10: "الصف العاشر",
+                grade11: "الصف الحادي عشر",
+                grade12: "الصف الثاني عشر",
+                studentName: "اسم الطالب",
+                studentScore: "الدرجة",
+                sortBtn: "ترتيب ↕",
+                printBtn: "طباعة 🖨",
+                contactTitle: "اتصل بنا",
+                facebook: "فيسبوك",
+                instagram: "إنستغرام",
+                youtube: "يوتيوب",
+                snapchat: "سناب شات",
+                whatsapp: "واتساب",
+                tiktok: "تيك توك",
+                telegram: "تيليجرام",
+                location: "موقعنا",
+                formName: "الاسم",
+                formEmail: "البريد الإلكتروني",
+                formPhone: "رقم الهاتف",
+                formMessage: "الرسالة",
+                formSubmit: "إرسال الرسالة",
+                formNameError: "الرجاء إدخال اسمك",
+                formEmailError: "الرجاء إدخال بريد إلكتروني صحيح",
+                formPhoneError: "الرجاء إدخال رقم هاتفك",
+                formMessageError: "الرجاء إدخال رسالة",
+                formSuccess: "شكراً! تم إرسال رسالتك بنجاح.",
+                footerCopyright: "© ٢٠٢٦ سردم - مدرسة ثانوية علمية خاصة. جميع الحقوق محفوظة.",
+                footerDescription: "نحن نخلق تجارب تعليمية راقية تدعم النمو الأكاديمي المستدام وتعزز العلاقات القوية والدائمة مع الطلاب.",
+                footerQuickLinks: "روابط سريعة",
+                footerContactUs: "اتصل بنا",
+                footerLocation: "أربيل، العراق"
+            }
+        };
+
+        /* ============================================
+           INITIALIZATION
+           ============================================ */
+        
+        // Remove no-js class
+        document.body.classList.remove('no-js');
+
+        // Current language
+        let currentLanguage = 'en';
+
+        // Sorted state for each grade
+        const sortedState = {
+            grade10: false,
+            grade11: false,
+            grade12: false
+        };
+
+        /* ============================================
+           LANGUAGE FUNCTIONS
+           ============================================ */
+        
+        function updateLanguage(lang) {
+            try {
+                currentLanguage = lang;
+                var trans = translations[lang];
+                
+                if (!trans) {
+                    console.error('Translations not found for language:', lang);
+                    return;
+                }
+                
+                // Update all elements with data-translate attribute
+                var elements = document.querySelectorAll('[data-translate]');
+                for (var i = 0; i < elements.length; i++) {
+                    var element = elements[i];
+                    var key = element.getAttribute('data-translate');
+                    if (trans[key]) {
+                        if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
+                            element.placeholder = trans[key];
+                        } else {
+                            element.textContent = trans[key];
+                        }
+                    }
+                }
+
+                // Update current language display
+                var langNames = { en: 'English', ku: 'کوردی', ar: 'العربية' };
+                var currentLangElement = document.getElementById('currentLang');
+                if (currentLangElement) {
+                    currentLangElement.textContent = langNames[lang];
+                }
+
+                // Set text direction for RTL languages
+                if (lang === 'ar' || lang === 'ku') {
+                    document.documentElement.setAttribute('dir', 'rtl');
+                    document.body.setAttribute('dir', 'rtl');
+                } else {
+                    document.documentElement.setAttribute('dir', 'ltr');
+                    document.body.setAttribute('dir', 'ltr');
+                }
+
+                // Re-render teachers to update text
+                renderTeachersForGrade(currentTeacherGrade);
+
+                // Re-render students to update names
+                if (studentsDataMultilingual[lang]) {
+                    renderStudents('grade10', studentsDataMultilingual[lang].grade10);
+                    renderStudents('grade11', studentsDataMultilingual[lang].grade11);
+                    renderStudents('grade12', studentsDataMultilingual[lang].grade12);
+                }
+
+                // Store preference
+                try {
+                    localStorage.setItem('language', lang);
+                } catch (e) {
+                    console.warn('localStorage not available');
+                }
+            } catch (error) {
+                console.error('Error updating language:', error);
+            }
+        }
+
+        /* ============================================
+           TEACHERS FUNCTIONS
+           ============================================ */
+        
+        let currentTeacherGrade = 10;
+
+        function renderTeachersForGrade(grade) {
+            const container = document.getElementById(`teachers-grade-${grade}`);
+            const trans = translations[currentLanguage];
+            const gradeKey = `grade${grade}`;
+            const teachers = teachersDataMultilingual[currentLanguage][gradeKey] || [];
+            
+            container.innerHTML = teachers.map(teacher => `
+                <div class="teacher-card" tabindex="0" role="button" aria-label="Teacher card for ${teacher.name}">
+                    <div class="teacher-card-inner">
+                        <div class="teacher-card-front">
+                            <img src="${teacher.photo}" alt="${teacher.name}" class="teacher-photo" 
+                                 onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22160%22 height=%22160%22%3E%3Crect width=%22160%22 height=%22160%22 fill=%22%23e5e7eb%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-family=%22Arial%22 font-size=%2228%22 fill=%22%236b7280%22%3E${teacher.name.charAt(0)}%3C/text%3E%3C/svg%3E'">
+                            <h3 class="teacher-name">${teacher.name}</h3>
+                            <p class="teacher-subject">${teacher.subject}</p>
+                        </div>
+                        <div class="teacher-card-back">
+                            <h3 class="teacher-name">${teacher.name}</h3>
+                            <p class="teacher-bio">${teacher.bio}</p>
+                            <p class="teacher-experience">${teacher.years} ${trans.teacherYears}</p>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+
+            // Add event listeners for card flipping
+            container.querySelectorAll('.teacher-card').forEach(card => {
+                // Click/tap event
+                card.addEventListener('click', function() {
+                    this.classList.toggle('flipped');
+                });
+
+                // Keyboard support
+                card.addEventListener('keydown', function(e) {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        this.classList.toggle('flipped');
+                    }
+                });
+            });
+        }
+
+        // Initialize teacher grade selector
+        document.querySelectorAll('.grade-teacher-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const grade = this.getAttribute('data-grade');
+                currentTeacherGrade = grade;
+                
+                // Update active button
+                document.querySelectorAll('.grade-teacher-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                
+                // Show corresponding teacher group
+                document.querySelectorAll('.teachers-grade-group').forEach(group => {
+                    group.classList.remove('active');
+                });
+                document.getElementById(`teachers-grade-${grade}`).classList.add('active');
+            });
+        });
+
+        /* ============================================
+           STUDENTS FUNCTIONS
+           ============================================ */
+        
+        function renderStudents(grade, data) {
+            try {
+                const list = document.getElementById(grade + 'List');
+                if (!list) {
+                    console.error('Element not found:', grade + 'List');
+                    return;
+                }
+                if (!data || !Array.isArray(data)) {
+                    console.error('Invalid data for grade:', grade);
+                    return;
+                }
+                
+                var html = '';
+                for (var i = 0; i < data.length; i++) {
+                    var student = data[i];
+                    html += '<tr><td>' + student.name + '</td><td class="student-score">' + student.score + '%</td></tr>';
+                }
+                list.innerHTML = html;
+            } catch (error) {
+                console.error('Error rendering students:', error);
+            }
+        }
+
+        function sortGrade(grade) {
+            try {
+                // Toggle sort direction
+                sortedState[grade] = !sortedState[grade];
+                
+                if (!studentsDataMultilingual[currentLanguage] || !studentsDataMultilingual[currentLanguage][grade]) {
+                    console.error('Student data not found for:', currentLanguage, grade);
+                    return;
+                }
+                
+                var data = studentsDataMultilingual[currentLanguage][grade].slice(); // Create copy
+                if (sortedState[grade]) {
+                    data.sort(function(a, b) { return b.score - a.score; });
+                }
+                
+                renderStudents(grade, data);
+            } catch (error) {
+                console.error('Error sorting grade:', error);
+            }
+        }
+
+        function printGrade(grade) {
+            // Add printing class to the specific section
+            const section = document.getElementById(`${grade}Section`);
+            section.classList.add('printing');
+            
+            // Print
+            window.print();
+            
+            // Remove printing class after print dialog closes
+            setTimeout(() => {
+                section.classList.remove('printing');
+            }, 1000);
+        }
+
+        /* ============================================
+           EVENT LISTENERS
+           ============================================ */
+        
+        // Language switcher
+        const languageBtn = document.getElementById('languageBtn');
+        const languageDropdown = document.getElementById('languageDropdown');
+
+        languageBtn.addEventListener('click', function() {
+            languageDropdown.classList.toggle('active');
+            const isExpanded = languageDropdown.classList.contains('active');
+            this.setAttribute('aria-expanded', isExpanded);
+        });
+
+        languageDropdown.querySelectorAll('button').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const lang = this.getAttribute('data-lang');
+                updateLanguage(lang);
+                languageDropdown.classList.remove('active');
+                languageBtn.setAttribute('aria-expanded', 'false');
+            });
+        });
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.language-switcher')) {
+                languageDropdown.classList.remove('active');
+                languageBtn.setAttribute('aria-expanded', 'false');
+            }
+        });
+
+        // Dark mode toggle
+        const darkModeToggle = document.getElementById('darkModeToggle');
+
+        darkModeToggle.addEventListener('click', function() {
+            document.body.classList.toggle('dark-mode');
+            this.classList.toggle('active');
+            const isActive = this.classList.contains('active');
+            
+            // Update icon
+            if (isActive) {
+                this.innerHTML = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>';
+                this.setAttribute('title', 'Light Mode');
+            } else {
+                this.innerHTML = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>';
+                this.setAttribute('title', 'Dark Mode');
+            }
+            
+            localStorage.setItem('darkMode', isActive);
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        /* ============================================
+           INITIALIZATION ON PAGE LOAD
+           ============================================ */
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load saved preferences
+            const savedLang = localStorage.getItem('language') || 'en';
+            const savedDarkMode = localStorage.getItem('darkMode') === 'true';
+
+            // Apply saved language
+            updateLanguage(savedLang);
+
+            // Apply saved dark mode
+            if (savedDarkMode) {
+                document.body.classList.add('dark-mode');
+                darkModeToggle.classList.add('active');
+                darkModeToggle.innerHTML = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>';
+                darkModeToggle.setAttribute('title', 'Light Mode');
+            }
+
+            // Render teachers for all grades
+            renderTeachersForGrade(10);
+            renderTeachersForGrade(11);
+            renderTeachersForGrade(12);
+
+            // Render students with current language
+            const currentLang = currentLanguage || savedLang;
+            renderStudents('grade10', studentsDataMultilingual[currentLang].grade10);
+            renderStudents('grade11', studentsDataMultilingual[currentLang].grade11);
+            renderStudents('grade12', studentsDataMultilingual[currentLang].grade12);
+
+            // Smooth scroll to top for logo/home link
+            const homeLink = document.getElementById('homeLink');
+            if (homeLink) {
+                homeLink.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    window.scrollTo({
+                        top: 0,
+                        behavior: 'smooth'
+                    });
+                });
+            }
+
+            // Scroll animation observer
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animated');
+                    }
+                });
+            }, observerOptions);
+
+            // Add animation classes to sections and cards
+            document.querySelectorAll('section').forEach((section, index) => {
+                section.classList.add('animate-on-scroll', 'fade-up');
+                observer.observe(section);
+            });
+
+            document.querySelectorAll('.teacher-card').forEach((card, index) => {
+                card.classList.add('animate-on-scroll', 'scale-in');
+                card.style.transitionDelay = `${index * 0.1}s`;
+                observer.observe(card);
+            });
+
+            document.querySelectorAll('.grade-section').forEach((section) => {
+                section.classList.add('animate-on-scroll', 'fade-up');
+                observer.observe(section);
+            });
+        });
+    </script>
+</body>
+</html>
